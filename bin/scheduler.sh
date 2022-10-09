@@ -117,8 +117,12 @@ extend_schedule
 
 # forever and ever, try to update the screensaver
 while [ 1 -eq 1 ]; do 
-	sh ./update.sh
+	WAIT_TIME=$(sh ./update.sh)
+	
+	if [ -z "$WAIT_TIME" ]; then
+		WAIT_TIME=3600
+	fi
 	
 	# wait for the next trigger time
-	wait_for $(( 60 * $(get_time_to_next_update) ))
+	wait_for $WAIT_TIME
 done

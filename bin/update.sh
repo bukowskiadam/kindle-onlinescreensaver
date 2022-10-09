@@ -23,7 +23,7 @@ else
 fi
 
 # do nothing if no URL is set
-if [ -z $IMAGE_URI ]; then
+if [ -z "$IMAGE_URI" ]; then
 	logger "No image URL has been set. Please edit config.sh."
 	return
 fi
@@ -52,16 +52,20 @@ if [ 1 -eq $CONNECTED ]; then
 	URL="$IMAGE_URI&battery=$BATTERY_PERCENTAGE"
 
 	logger "Fetching image from: $URL"
+
+	# script `fetch-file` echoes the next refresh time in seconds
 	if /mnt/us/extensions/onlinescreensaver/bin/fetch-file $URL $TMPFILE; then
 		mv $TMPFILE $SCREENSAVERFILE
 		logger "Screen saver image updated"
 
 		# refresh screen
-		lipc-get-prop com.lab126.powerd status | grep "Screen Saver" && (
+		lipc-get-prop com.lab126.powerd status | grep -q "Screen Saver" && (
 			logger "Updating image on screen"
 			eips -c
 			eips -f -g $SCREENSAVERFILE
 		)
+
+		exit 0
 	else
 		logger "Error updating screensaver"
 

@@ -10,8 +10,8 @@ logger () {
 	fi
 
 	# if no logfile is specified, set a default
-	if [ -z $LOGFILE ]; then
-		$LOGFILE=stdout
+	if [ -z "$LOGFILE" ]; then
+		LOGFILE=stdout
 	fi
 
 	echo `date`: $MSG >> $LOGFILE
@@ -46,7 +46,7 @@ wait_for () {
 
 	# wait for timeout to expire
 	while [ $REMAININGWAITTIME -gt 0 ]; do
-		EVENT=$(lipc-wait-event -s $1 com.lab126.powerd readyToSuspend,wakeupFromSuspend,resuming)
+		EVENT=$(lipc-wait-event -s $REMAININGWAITTIME com.lab126.powerd readyToSuspend,wakeupFromSuspend,resuming)
 		REMAININGWAITTIME=$(( $ENDWAIT - $(currentTime) ))
 		logger "Received event: $EVENT"
 
@@ -55,8 +55,7 @@ wait_for () {
 				set_rtc_wakeup $REMAININGWAITTIME
 			;;
 			wakeupFromSuspend*|resuming*)
-				logger "Finishing the wait"
-				break
+				logger "Received wake up/resume. Remaining time: $REMAININGWAITTIME"
 			;;
 			*)
 				logger "Ignored event: $EVENT"
@@ -68,7 +67,7 @@ wait_for () {
 }
 
 ##############################################################################
-# Retrieves the current time in seconds
+# Retrieves the current battery percentage
 
 getBatteryPercentage () {
 	BATTERY=$(lipc-get-prop com.lab126.powerd status | grep "Battery Level" | cut -d' ' -f3 | sed 's/%//g')
