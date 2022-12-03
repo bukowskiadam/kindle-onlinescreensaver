@@ -2,35 +2,6 @@
 ### ONLINE-SCREENSAVER CONFIGURATION SETTINGS
 #############################################################################
 
-# Interval in MINUTES in which to update the screensaver by default. This
-# setting will only be used if no schedule (see below) fits. Note that if the
-# update fails, the script is not updating again until INTERVAL minutes have
-# passed again. So chose a good compromise between updating often (to make
-# sure you always have the latest image) and rarely (to not waste battery).
-DEFAULTINTERVAL=60
-
-# Schedule for updating the screensaver. Use checkschedule.sh to check whether
-# the format is correctly understood. 
-#
-# The format is a space separated list of settings for different times of day:
-#       SCHEDULE="setting1 setting2 setting3 etc"
-# where each setting is of the format
-#       STARTHOUR:STARTMINUTE-ENDHOUR:ENDMINUTE=INTERVAL
-# where
-#       STARTHOUR:STARTMINUTE is the time this setting starts taking effect
-#       ENDHOUR:ENDMINUTE is the time this setting stops being active
-#       INTERVAL is the interval in MINUTES in which to update the screensaver
-#
-# Time values must be in 24 hour format and not wrap over midnight.
-# EXAMPLE: "00:00-06:00=480 06:00-18:00=15 18:00-24:00=30"
-#          -> Between midnight and 6am, update every 4 hours
-#          -> Between 6am and 6pm (18 o'clock), update every 15 minutes
-#          -> Between 6pm and midnight, update every 30 minutes
-#
-# Use the checkschedule.sh script to verify that the setting is correct and
-# which would be the active interval.
-SCHEDULE="00:00-04:00=120 4:00-8:00=15 08:00-16:00=60 16:00-24:00=30"
-
 # URL of screensaver image. This really must be in the EXACT resolution of
 # your Kindle's screen (e.g. 600x800 or 758x6024) and really must be PNG.
 #IMAGE_URI="http://enter.the.domain/here/and/the/path/to/the/image.png"
