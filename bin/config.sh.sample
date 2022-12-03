@@ -29,7 +29,7 @@ TEST_DOMAIN="www.google.com"
 # How long (in seconds) to wait for an internet connection to be established
 # (if you experience frequent timeouts when waking up from sleep, try to
 # increase this value)
-NETWORK_TIMEOUT=30
+NETWORK_TIMEOUT=60
 
 
 #############################################################################

@@ -43,6 +43,7 @@ wait_for () {
 	ENDWAIT=$(( $(currentTime) + $1 ))
 	REMAININGWAITTIME=$(( $ENDWAIT - $(currentTime) ))
 	logger "Starting to wait for timeout to expire: $1"
+	set_rtc_wakeup $REMAININGWAITTIME
 
 	# wait for timeout to expire
 	while [ $REMAININGWAITTIME -gt 0 ]; do
