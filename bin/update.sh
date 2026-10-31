@@ -70,7 +70,9 @@ if [ 1 -eq $CONNECTED ]; then
 		logger "Error updating screensaver"
 
 		DATE=$(date)
-		eips 0 0 "Last update failed"
-		eips 0 1 "$DATE"
+		eips 8 6 "===================================="
+		eips 16 7 "Last update failed"
+		eips 8 8 "$DATE"
+		eips 8 9 "===================================="
 	fi
 fi
